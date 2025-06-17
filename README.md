@@ -5,6 +5,8 @@ UIKit + Storyboard 기반의 점심 메뉴 추천 앱입니다.
 "오늘 뭐 먹지?" 고민을 한 번에 해결!  
 주변 식당 탐색, 지도 기반 탐색, 즐겨찾기, 카테고리별 추천 등 다양한 기능을 제공합니다.
 
+소개 영상 링크: https://youtube.com/shorts/hq8Z8w-kQww?feature=share
+
 ---
 
 ## 앱 스크린샷
