@@ -1,0 +1,52 @@
+# Xcode
+DerivedData/
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.moved-aside
+*.xcuserdatad
+*.swp
+*.lock
+*.DS_Store
+
+# SwiftPM
+.build/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# SPM Packages
+Package.resolved
+
+# API Keys & Secrets (예시)
+*.xcconfig
+Secrets.plist
+
+# 기타
+*.orig
+*.log
+
+# User-specific files
+*.env
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace/ 

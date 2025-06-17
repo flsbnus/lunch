@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🍽️ 오늘 뭐 먹지?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tit-le-lab">
+                                <rect key="frame" x="20" y="120" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="seg-cat-ctrl">
+                                <rect key="frame" x="20" y="194" width="353" height="32"/>
+                                <segments>
+                                    <segment title="전체"/>
+                                </segments>
+                                <connections>
+                                    <action selector="categoryChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="cat-change"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rec-btn">
+                                <rect key="frame" x="50" y="265" width="293" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="rec-btn-height"/>
+                                </constraints>
+                                <state key="normal" title="메뉴 추천받기"/>
+                                <buttonConfiguration key="configuration" style="filled" title="메뉴 추천받기">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="recommendButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rec-btn-action"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fav-btn">
+                                <rect key="frame" x="50" y="355" width="293" height="44"/>
+                                <state key="normal" title="⭐️ 즐겨찾기"/>
+                                <buttonConfiguration key="configuration" style="filled" title="⭐️ 즐겨찾기">
+                                    <color key="baseBackgroundColor" systemColor="systemOrangeColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="favoritesButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fav-btn-action"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="map-btn">
+                                <rect key="frame" x="50" y="419" width="293" height="44"/>
+                                <state key="normal" title="🗺️ 주변 식당"/>
+                                <buttonConfiguration key="configuration" style="filled" title="🗺️ 주변 식당">
+                                    <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="mapButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="map-btn-action"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tit-le-lab" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="title-leading"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tit-le-lab" secondAttribute="trailing" constant="20" id="title-trailing"/>
+                            <constraint firstItem="tit-le-lab" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="title-top"/>
+                            <constraint firstItem="seg-cat-ctrl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="seg-leading"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="seg-cat-ctrl" secondAttribute="trailing" constant="20" id="seg-trailing"/>
+                            <constraint firstItem="seg-cat-ctrl" firstAttribute="top" secondItem="tit-le-lab" secondAttribute="bottom" constant="40" id="seg-top"/>
+                            <constraint firstItem="rec-btn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="rec-leading"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rec-btn" secondAttribute="trailing" constant="50" id="rec-trailing"/>
+                            <constraint firstItem="rec-btn" firstAttribute="top" secondItem="seg-cat-ctrl" secondAttribute="bottom" constant="40" id="rec-top"/>
+                            <constraint firstItem="fav-btn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="fav-leading"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fav-btn" secondAttribute="trailing" constant="50" id="fav-trailing"/>
+                            <constraint firstItem="fav-btn" firstAttribute="top" secondItem="rec-btn" secondAttribute="bottom" constant="30" id="fav-top"/>
+                            <constraint firstItem="map-btn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="main-map-leading"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="map-btn" secondAttribute="trailing" constant="50" id="main-map-trailing"/>
+                            <constraint firstItem="map-btn" firstAttribute="top" secondItem="fav-btn" secondAttribute="bottom" constant="20" id="main-map-top"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="점심 메뉴 추천" id="nav-item"/>
+                    <connections>
+                        <outlet property="categorySegmentedControl" destination="seg-cat-ctrl" id="seg-outlet"/>
+                        <outlet property="favoritesButton" destination="fav-btn" id="fav-outlet"/>
+                        <outlet property="mapButton" destination="map-btn" id="main-map-outlet"/>
+                        <outlet property="recommendButton" destination="rec-btn" id="rec-outlet"/>
+                        <outlet property="titleLabel" destination="tit-le-lab" id="title-outlet"/>
+                        <segue destination="result-vc" kind="show" identifier="showResult" id="result-segue"/>
+                        <segue destination="fav-vc" kind="show" identifier="showFavorites" id="fav-segue"/>
+                        <segue destination="map-vc" kind="show" identifier="showMap" id="map-segue"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928.24427480916027" y="3.5211267605633805"/>
+        </scene>
+        <!--Result View Controller-->
+        <scene sceneID="result-scene">
+            <objects>
+                <viewController id="result-vc" customClass="ResultViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="result-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🎉 오늘의 점심은..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="result-title">
+                                <rect key="frame" x="20" y="120" width="353" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메뉴 이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="menu-name">
+                                <rect key="frame" x="20" y="189" width="353" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="category-lbl">
+                                <rect key="frame" x="20" y="247" width="353" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메뉴 설명" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="menu-desc">
+                                <rect key="frame" x="20" y="288" width="353" height="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="add-fav-btn">
+                                <rect key="frame" x="50" y="367" width="293" height="44"/>
+                                <state key="normal" title="⭐️ 즐겨찾기 추가"/>
+                                <buttonConfiguration key="configuration" style="filled" title="⭐️ 즐겨찾기 추가">
+                                    <color key="baseBackgroundColor" systemColor="systemOrangeColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="addToFavoritesButtonTapped:" destination="result-vc" eventType="touchUpInside" id="add-fav-action"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rec-again-btn">
+                                <rect key="frame" x="50" y="431" width="293" height="44"/>
+                                <state key="normal" title="🔄 다시 추천"/>
+                                <buttonConfiguration key="configuration" style="filled" title="🔄 다시 추천"/>
+                                <connections>
+                                    <action selector="recommendAgainButtonTapped:" destination="result-vc" eventType="touchUpInside" id="rec-again-action"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="back-btn">
+                                <rect key="frame" x="50" y="495" width="293" height="44"/>
+                                <state key="normal" title="← 돌아가기"/>
+                                <buttonConfiguration key="configuration" style="filled" title="← 돌아가기">
+                                    <color key="baseBackgroundColor" systemColor="systemGrayColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="result-vc" eventType="touchUpInside" id="back-action"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="result-title" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="20" id="result-title-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="result-title" secondAttribute="trailing" constant="20" id="result-title-trailing"/>
+                            <constraint firstItem="result-title" firstAttribute="top" secondItem="result-safe" secondAttribute="top" constant="20" id="result-title-top"/>
+                            <constraint firstItem="menu-name" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="20" id="menu-name-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="menu-name" secondAttribute="trailing" constant="20" id="menu-name-trailing"/>
+                            <constraint firstItem="menu-name" firstAttribute="top" secondItem="result-title" secondAttribute="bottom" constant="40" id="menu-name-top"/>
+                            <constraint firstItem="category-lbl" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="20" id="category-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="category-lbl" secondAttribute="trailing" constant="20" id="category-trailing"/>
+                            <constraint firstItem="category-lbl" firstAttribute="top" secondItem="menu-name" secondAttribute="bottom" constant="20" id="category-top"/>
+                            <constraint firstItem="menu-desc" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="20" id="desc-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="menu-desc" secondAttribute="trailing" constant="20" id="desc-trailing"/>
+                            <constraint firstItem="menu-desc" firstAttribute="top" secondItem="category-lbl" secondAttribute="bottom" constant="20" id="desc-top"/>
+                            <constraint firstItem="add-fav-btn" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="50" id="add-fav-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="add-fav-btn" secondAttribute="trailing" constant="50" id="add-fav-trailing"/>
+                            <constraint firstItem="add-fav-btn" firstAttribute="top" secondItem="menu-desc" secondAttribute="bottom" constant="60" id="add-fav-top"/>
+                            <constraint firstItem="rec-again-btn" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="50" id="rec-again-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="rec-again-btn" secondAttribute="trailing" constant="50" id="rec-again-trailing"/>
+                            <constraint firstItem="rec-again-btn" firstAttribute="top" secondItem="add-fav-btn" secondAttribute="bottom" constant="20" id="rec-again-top"/>
+                            <constraint firstItem="back-btn" firstAttribute="leading" secondItem="result-safe" secondAttribute="leading" constant="50" id="back-leading"/>
+                            <constraint firstItem="result-safe" firstAttribute="trailing" secondItem="back-btn" secondAttribute="trailing" constant="50" id="back-trailing"/>
+                            <constraint firstItem="back-btn" firstAttribute="top" secondItem="rec-again-btn" secondAttribute="bottom" constant="20" id="back-top"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="result-safe"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="추천 결과" id="result-nav"/>
+                    <connections>
+                        <outlet property="addToFavoritesButton" destination="add-fav-btn" id="add-fav-outlet"/>
+                        <outlet property="backButton" destination="back-btn" id="back-outlet"/>
+                        <outlet property="categoryLabel" destination="category-lbl" id="category-outlet"/>
+                        <outlet property="menuDescriptionLabel" destination="menu-desc" id="desc-outlet"/>
+                        <outlet property="menuNameLabel" destination="menu-name" id="menu-name-outlet"/>
+                        <outlet property="recommendAgainButton" destination="rec-again-btn" id="rec-again-outlet"/>
+                        <outlet property="titleLabel" destination="result-title" id="result-title-outlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="result-responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1730" y="4"/>
+        </scene>
+        <!--Favorites View Controller-->
+        <scene sceneID="fav-scene">
+            <objects>
+                <viewController id="fav-vc" customClass="FavoritesViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fav-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fav-table">
+                                <rect key="frame" x="0.0" y="100" width="393" height="718"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="즐겨찾기가 없습니다" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="empty-label">
+                                <rect key="frame" x="20" y="400" width="353" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fav-table" firstAttribute="leading" secondItem="fav-safe" secondAttribute="leading" id="table-leading"/>
+                            <constraint firstItem="fav-safe" firstAttribute="trailing" secondItem="fav-table" secondAttribute="trailing" id="table-trailing"/>
+                            <constraint firstItem="fav-table" firstAttribute="top" secondItem="fav-safe" secondAttribute="top" id="table-top"/>
+                            <constraint firstItem="fav-safe" firstAttribute="bottom" secondItem="fav-table" secondAttribute="bottom" id="table-bottom"/>
+                            <constraint firstItem="empty-label" firstAttribute="leading" secondItem="fav-safe" secondAttribute="leading" constant="20" id="empty-leading"/>
+                            <constraint firstItem="fav-safe" firstAttribute="trailing" secondItem="empty-label" secondAttribute="trailing" constant="20" id="empty-trailing"/>
+                            <constraint firstItem="empty-label" firstAttribute="centerY" secondItem="fav-view" secondAttribute="centerY" id="empty-center"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fav-safe"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="즐겨찾기" id="fav-nav"/>
+                    <connections>
+                        <outlet property="emptyStateLabel" destination="empty-label" id="empty-outlet"/>
+                        <outlet property="tableView" destination="fav-table" id="table-outlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fav-responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1730" y="752"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="map-scene">
+            <objects>
+                <viewController id="map-vc" customClass="MapViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="map-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="map-mapview">
+                                <rect key="frame" x="0.0" y="154" width="393" height="664"/>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="filter-seg">
+                                <rect key="frame" x="20" y="100" width="273" height="32"/>
+                                <segments>
+                                    <segment title="전체"/>
+                                </segments>
+                                <connections>
+                                    <action selector="categoryFilterChanged:" destination="map-vc" eventType="valueChanged" id="filter-action"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loc-btn">
+                                <rect key="frame" x="313" y="100" width="60" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="loc-width"/>
+                                </constraints>
+                                <state key="normal" title="📍"/>
+                                <buttonConfiguration key="configuration" style="filled" title="📍"/>
+                                <connections>
+                                    <action selector="locationButtonTapped:" destination="map-vc" eventType="touchUpInside" id="loc-action"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="filter-seg" firstAttribute="leading" secondItem="map-safe" secondAttribute="leading" constant="20" id="filter-leading"/>
+                            <constraint firstItem="filter-seg" firstAttribute="top" secondItem="map-safe" secondAttribute="top" id="filter-top"/>
+                            <constraint firstItem="loc-btn" firstAttribute="leading" secondItem="filter-seg" secondAttribute="trailing" constant="20" id="loc-leading"/>
+                            <constraint firstItem="map-safe" firstAttribute="trailing" secondItem="loc-btn" secondAttribute="trailing" constant="20" id="loc-trailing"/>
+                            <constraint firstItem="loc-btn" firstAttribute="top" secondItem="map-safe" secondAttribute="top" id="loc-top"/>
+                            <constraint firstItem="map-mapview" firstAttribute="leading" secondItem="map-safe" secondAttribute="leading" id="mapview-leading"/>
+                            <constraint firstItem="map-safe" firstAttribute="trailing" secondItem="map-mapview" secondAttribute="trailing" id="mapview-trailing"/>
+                            <constraint firstItem="map-mapview" firstAttribute="top" secondItem="filter-seg" secondAttribute="bottom" constant="22" id="mapview-top"/>
+                            <constraint firstItem="map-safe" firstAttribute="bottom" secondItem="map-mapview" secondAttribute="bottom" id="map-bottom"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="map-safe"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="주변 식당" id="map-nav"/>
+                    <connections>
+                        <outlet property="categoryFilterSegmentedControl" destination="filter-seg" id="filter-outlet"/>
+                        <outlet property="locationButton" destination="loc-btn" id="loc-outlet"/>
+                        <outlet property="mapView" destination="map-mapview" id="mapview-outlet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="map-responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1730" y="-744"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nav-scene">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nav-bar">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="nav-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nav-responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132.06106870229009" y="3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
