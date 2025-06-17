@@ -66,9 +66,9 @@ class ResultViewController: UIViewController {
     @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
         guard let restaurant = recommendedRestaurant else { return }
         let favorite = Favorite(
-            menuName: "-", // 메뉴 없음
+            menuName: restaurant.name,
             restaurantName: restaurant.name,
-            category: .all,
+            category: restaurant.category,
             dateAdded: Date()
         )
         dataManager.addFavorite(favorite)

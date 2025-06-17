@@ -75,7 +75,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     
     private func setupCategorySegmentedControl() {
         categorySegmentedControl.removeAllSegments()
-        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood]
+        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood, .cafe]
         for (index, category) in categories.enumerated() {
             categorySegmentedControl.insertSegment(withTitle: "\(category.emoji)", at: index, animated: false)
         }
@@ -108,7 +108,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func categoryChanged(_ sender: UISegmentedControl) {
-        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood]
+        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood, .cafe]
         selectedCategory = categories[sender.selectedSegmentIndex]
     }
     

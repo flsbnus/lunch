@@ -63,7 +63,7 @@ class MapViewController: UIViewController {
     private func setupCategoryFilter() {
         categoryFilterSegmentedControl.removeAllSegments()
         
-        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood]
+        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood, .cafe]
         for (index, category) in categories.enumerated() {
             categoryFilterSegmentedControl.insertSegment(withTitle: "\(category.emoji)", at: index, animated: false)
         }
@@ -196,7 +196,7 @@ class MapViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func categoryFilterChanged(_ sender: UISegmentedControl) {
-        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood]
+        let categories: [FoodCategory] = [.all, .korean, .chinese, .japanese, .western, .fastFood, .cafe]
         selectedCategory = categories[sender.selectedSegmentIndex]
         loadRestaurantsFromAPI()
     }
@@ -329,24 +329,135 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        guard let annotation = view.annotation,
-              let place = searchResults.first(where: { $0.placeName == annotation.title }) else {
+        print("calloutAccessoryControlTapped 호출됨")
+        guard let annotation = view.annotation else {
+            print("annotation이 nil임")
             return
         }
-        
-        // 상세 정보 표시
-        let alert = UIAlertController(
-            title: place.placeName,
-            message: """
-                카테고리: \(place.categoryName)
-                주소: \(place.addressName)
-                전화번호: \(place.phone)
-                """,
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "확인", style: .default))
-        present(alert, animated: true)
+        print("annotation.title: \(annotation.title ?? "nil")")
+        print("searchResults placeNames: \(searchResults.map { $0.placeName })")
+        // 1. searchResults에서 찾기
+        if let place = searchResults.first(where: { $0.placeName == annotation.title }) {
+            print("place 찾음: \(place.placeName)")
+            // 거리 계산 (현재 위치와의 거리)
+            var distanceString = "-"
+            if let userLocation = mapView.userLocation.location,
+               let lat = Double(place.y), let lon = Double(place.x) {
+                let placeLocation = CLLocation(latitude: lat, longitude: lon)
+                let distance = userLocation.distance(from: placeLocation)
+                if distance >= 1000 {
+                    distanceString = String(format: "%.1fkm", distance/1000)
+                } else {
+                    distanceString = String(format: "%.0fm", distance)
+                }
+            }
+            let favorites = DataManager.shared.loadFavorites()
+            let isFavorite = favorites.contains(where: { $0.restaurantName == place.placeName })
+            let kakaoMapURL = "https://place.map.kakao.com/" + place.id
+            let phoneURL = "tel://" + place.phone.filter { $0.isNumber }
+            let message = """
+🏷️ 카테고리: \(place.categoryName)
+📍 주소: \(place.roadAddressName.isEmpty ? place.addressName : place.roadAddressName)
+📞 전화번호: \(place.phone.isEmpty ? "-" : place.phone)
+📏 거리: \(distanceString)
+"""
+            let alert = UIAlertController(title: "🍽️  \(place.placeName)", message: message, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "카카오맵으로 열기", style: .default, handler: { _ in
+                if let url = URL(string: kakaoMapURL) {
+                    UIApplication.shared.open(url)
+                }
+            }))
+            if !place.phone.isEmpty, let url = URL(string: phoneURL), UIApplication.shared.canOpenURL(url) {
+                alert.addAction(UIAlertAction(title: "전화걸기", style: .default, handler: { _ in
+                    UIApplication.shared.open(url)
+                }))
+            }
+            let favoriteTitle = isFavorite ? "⭐️ 즐겨찾기 제거" : "⭐️ 즐겨찾기 추가"
+            alert.addAction(UIAlertAction(title: favoriteTitle, style: .default, handler: { _ in
+                let favorite = Favorite(menuName: place.placeName, restaurantName: place.placeName, category: .all, dateAdded: Date())
+                if isFavorite {
+                    DataManager.shared.removeFavorite(favorite)
+                } else {
+                    DataManager.shared.addFavorite(favorite)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "공유", style: .default, handler: { _ in
+                let shareText = "[\(place.placeName)]\n\(place.roadAddressName.isEmpty ? place.addressName : place.roadAddressName)\n\(place.phone)\n\(kakaoMapURL)"
+                let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+                if let popover = activityVC.popoverPresentationController {
+                    popover.sourceView = self.view
+                    popover.sourceRect = view.frame
+                }
+                self.present(activityVC, animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "닫기", style: .cancel))
+            if let popover = alert.popoverPresentationController {
+                popover.sourceView = self.view
+                popover.sourceRect = view.frame
+            }
+            present(alert, animated: true)
+            return
+        }
+        // 2. restaurants에서 찾기
+        if let restaurant = restaurants.first(where: { $0.name == annotation.title }) {
+            print("restaurant 찾음: \(restaurant.name)")
+            // 거리 계산 (현재 위치와의 거리)
+            var distanceString = "-"
+            if let userLocation = mapView.userLocation.location {
+                let placeLocation = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
+                let distance = userLocation.distance(from: placeLocation)
+                if distance >= 1000 {
+                    distanceString = String(format: "%.1fkm", distance/1000)
+                } else {
+                    distanceString = String(format: "%.0fm", distance)
+                }
+            }
+            let favorites = DataManager.shared.loadFavorites()
+            let isFavorite = favorites.contains(where: { $0.restaurantName == restaurant.name })
+            let phoneURL = "tel://" + (restaurant.phoneNumber ?? "").filter { $0.isNumber }
+            let message = """
+🏷️ 카테고리: \(restaurant.category.emoji) \(restaurant.category.rawValue)
+📍 주소: \(restaurant.address)
+📞 전화번호: \(restaurant.phoneNumber ?? "-")
+📏 거리: \(distanceString)
+"""
+            let alert = UIAlertController(title: "🍽️  \(restaurant.name)", message: message, preferredStyle: .actionSheet)
+            // 전화걸기
+            if let phone = restaurant.phoneNumber, !phone.isEmpty, let url = URL(string: phoneURL), UIApplication.shared.canOpenURL(url) {
+                alert.addAction(UIAlertAction(title: "전화걸기", style: .default, handler: { _ in
+                    UIApplication.shared.open(url)
+                }))
+            }
+            // 즐겨찾기 추가/제거
+            let favoriteTitle = isFavorite ? "⭐️ 즐겨찾기 제거" : "⭐️ 즐겨찾기 추가"
+            alert.addAction(UIAlertAction(title: favoriteTitle, style: .default, handler: { _ in
+                let favorite = Favorite(menuName: restaurant.name, restaurantName: restaurant.name, category: restaurant.category, dateAdded: Date())
+                if isFavorite {
+                    DataManager.shared.removeFavorite(favorite)
+                } else {
+                    DataManager.shared.addFavorite(favorite)
+                }
+            }))
+            // 공유
+            alert.addAction(UIAlertAction(title: "공유", style: .default, handler: { _ in
+                let shareText = "[\(restaurant.name)]\n\(restaurant.address)\n\(restaurant.phoneNumber ?? "-")"
+                let activityVC = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+                if let popover = activityVC.popoverPresentationController {
+                    popover.sourceView = self.view
+                    popover.sourceRect = view.frame
+                }
+                self.present(activityVC, animated: true)
+            }))
+            // 닫기
+            alert.addAction(UIAlertAction(title: "닫기", style: .cancel))
+            if let popover = alert.popoverPresentationController {
+                popover.sourceView = self.view
+                popover.sourceRect = view.frame
+            }
+            present(alert, animated: true)
+            return
+        }
+        print("place/restaurant를 찾지 못함")
     }
 }
 
